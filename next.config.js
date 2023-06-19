@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  // 기존 설정 유지
 
-module.exports = nextConfig
+  // 추가 설정
+  ...require("next-fonts")(),
+};
+
+module.exports = nextConfig;
