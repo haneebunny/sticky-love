@@ -1,11 +1,28 @@
+import { useState } from "react";
+import Draggable from "react-draggable";
+
 export default function Memo({ name, content }) {
+  const [position, setPosition] = useState({ x: 0, y: 0 }); // box의 포지션 값
+
+  const trackPos = (data) => {
+    setPosition({ x: data.x, y: data.y });
+  };
+
   return (
-    <div>
-      <div className=" font m-5 bg-amber-200 max-w-[400px] min-h-[350px] p-10 shadow-lg">
+    <Draggable
+      // axis="x,y"
+      handle=".handle"
+      defaultPosition={{ x: 0, y: 0 }}
+      position={null}
+      grid={[25, 25]}
+      scale={1}
+      onDrag={(e, data) => trackPos(data)}
+    >
+      <div className="handle font m-5 bg-amber-200 max-w-[400px] min-h-[350px] p-10 shadow-lg">
         <div className="h-[250px]">{content}</div>
 
-        <p className="flex jusity-end">{name}가</p>
+        <p className="flex justify-end cursor-move">{name}가</p>
       </div>
-    </div>
+    </Draggable>
   );
 }

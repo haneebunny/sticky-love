@@ -2,10 +2,12 @@
 
 import { readBoards, writeBoard } from "@/api/firebase";
 import { isEmpty } from "@/api/function";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Memo from "./Memo";
 
 export default function BoardNew() {
+  const router = useRouter();
   const [inputs, setInputs] = useState();
   const handleChangeInput = (event) => {
     const { value, id } = event.target;
@@ -23,13 +25,21 @@ export default function BoardNew() {
     }
 
     console.log(inputs);
-    // firebase 실시간 데이터 베이스 api로 만든 함수
-    writeBoard(inputs?.name, inputs?.content);
-    setInputs({
-      name: "",
-      content: "",
-    });
-    alert("잘 붙여졌다!"); // 목록으로 이동해야 함
+
+    try {
+      // firebase 실시간 데이터 베이스 api로 만든 함수
+      writeBoard(inputs?.name, inputs?.content);
+      setInputs({
+        name: "",
+        content: "",
+      });
+    } catch (e) {
+      alert(e.message);
+      console.error(e);
+    } finally {
+      alert("잘 붙여졌다!"); // 목록으로 이동해야 함
+      router.push("/board");
+    }
   };
 
   return (
