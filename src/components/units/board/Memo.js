@@ -1,3 +1,4 @@
+import { Josa } from "@/common/api/function";
 import { useState } from "react";
 import Draggable from "react-draggable";
 
@@ -10,10 +11,10 @@ export default function Memo({ name, content }) {
 
   return (
     <Draggable
-      // axis="x,y"
+      axis="x,y"
       handle=".handle"
       defaultPosition={{ x: 0, y: 0 }}
-      position={null}
+      position={position}
       grid={[25, 25]}
       scale={1}
       onDrag={(e, data) => trackPos(data)}
@@ -21,7 +22,7 @@ export default function Memo({ name, content }) {
       <div className="handle font m-5 bg-amber-200 max-w-[400px] min-h-[350px] p-10 shadow-lg">
         <div className="h-[250px]">{content}</div>
 
-        <p className="flex justify-end cursor-move">{name}가</p>
+        <p className="flex justify-end cursor-move">{Josa(name, "이")}</p>
       </div>
     </Draggable>
   );

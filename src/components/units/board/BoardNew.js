@@ -1,7 +1,7 @@
 "use client";
 
-import { readBoards, writeBoard } from "@/api/firebase";
-import { isEmpty } from "@/api/function";
+import { readBoards, writeBoard } from "@/common/api/firebase";
+import { addRandomModifier, isEmpty } from "@/common/api/function";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Memo from "./Memo";
@@ -24,11 +24,15 @@ export default function BoardNew() {
       return;
     }
 
+    if (inputs?.content.length < 10) {
+      alert("조금 더 성의있게 써주세요...흑흑");
+      return;
+    }
     console.log(inputs);
 
     try {
       // firebase 실시간 데이터 베이스 api로 만든 함수
-      writeBoard(inputs?.name, inputs?.content);
+      writeBoard(addRandomModifier(inputs?.name), inputs?.content);
       setInputs({
         name: "",
         content: "",
