@@ -7,6 +7,7 @@ export default function Home() {
       메인페이지
       <Link href="/hani">계산기</Link>
       <Link href="/board">게시판</Link>
+      <Link href="/mail">편지</Link>
     </main>
   );
 }
